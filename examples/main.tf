@@ -1,5 +1,5 @@
-module "oci_free_k8s_cluster {
-    source = "xxx"
+module "oci_free_k8s_cluster" {
+    source = "github.com/davidconalrobinson/oci-free-k8s-cluster"
 
     tenancy_ocid        = "ocid1.tenancy.oc1..thisisafaketenancyocid"
     fingerprint         = "th:is:is:af:ak:ef:in:ge:rp:ri:nt"
