@@ -29,3 +29,11 @@ module "argocd" {
   region           = var.region
   compartment_ocid = module.oci.compartment_ocid
 }
+
+module "sops" {
+  source = "./modules/sops"
+
+  kube_config     = module.oci.kube_config
+  age_private_key = var.age_private_key
+  age_public_key  = var.age_public_key
+}

@@ -9,4 +9,6 @@ module "oci_free_k8s_cluster" {
     dns_name            = "example.com"
     availability_domain = "chxt:eu-amsterdam-1-AD-1"
     node_image_id       = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaafzh7gzsjes6na6rebvxtgs7ldp5qcjegal5y76ouhut4prih4y5q"
+    age_private_key     = "some-private-key"
+    age_public_key      = "some-public-key"
 }

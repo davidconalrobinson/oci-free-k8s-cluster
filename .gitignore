@@ -3,3 +3,4 @@
 *terraform.tfstate.backup
 *tfvars
 .kube_config
+.key.txt
