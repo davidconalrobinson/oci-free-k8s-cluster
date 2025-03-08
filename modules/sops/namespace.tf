@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "sops" {
   metadata {
-    name = "sops"
+    name = "sops-secrets-operator"
   }
 }

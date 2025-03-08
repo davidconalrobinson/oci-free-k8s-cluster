@@ -24,7 +24,7 @@ resource "argocd_application" "application" {
         self_heal   = true
         allow_empty = true
       }
-      sync_options = ["CreateNamespace=true"]
+      sync_options = ["CreateNamespace=true", "Upsert=true"]
       retry {
         limit = "5"
         backoff {

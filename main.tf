@@ -18,6 +18,14 @@ resource "local_file" "kube_config" {
   filename = var.kube_config_path
 }
 
+module "sops" {
+  source = "./modules/sops"
+
+  kube_config     = module.oci.kube_config
+  age_private_key = var.age_private_key
+  age_public_key  = var.age_public_key
+}
+
 module "argocd" {
   source = "./modules/argocd"
 
@@ -28,12 +36,4 @@ module "argocd" {
   private_key_path = var.private_key_path
   region           = var.region
   compartment_ocid = module.oci.compartment_ocid
-}
-
-module "sops" {
-  source = "./modules/sops"
-
-  kube_config     = module.oci.kube_config
-  age_private_key = var.age_private_key
-  age_public_key  = var.age_public_key
 }
