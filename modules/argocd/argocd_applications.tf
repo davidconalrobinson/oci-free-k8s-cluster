@@ -2,6 +2,7 @@ resource "argocd_application" "application" {
   for_each = toset([
     "cert-manager",
     "ingress-nginx",
+    "sops-secrets-operator",
   ])
   metadata {
     name      = each.value
