@@ -1,7 +1,10 @@
 resource "argocd_application" "application" {
   for_each = toset([
+    "argocd-ingress",
     "cert-manager",
+    "external-dns",
     "ingress-nginx",
+    "oauth2-proxy",
     "sops-secrets-operator",
   ])
   metadata {

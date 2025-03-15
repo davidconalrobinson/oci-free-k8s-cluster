@@ -45,11 +45,13 @@ variable "kube_config_path" {
   default = ".kube_config"
 }
 
-variable "age_private_key" {
-  description = "The private key used for age encryption. This key is kept secret and should never be exposed in public repositories or logs."
-}
-
-variable "age_public_key" {
-  description = "The public key used for age encryption. This key can be shared with others to allow them to encrypt data that only the corresponding private key can decrypt."
+variable "secrets" {
+  description = "Kubernetes secrets to deploy to cluster."
+  default     = []
+  type        = list(object({
+    namespace = string
+    name      = string
+    data      = map(any)
+  }))
 }
 

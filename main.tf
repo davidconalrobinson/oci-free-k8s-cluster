@@ -18,12 +18,11 @@ resource "local_file" "kube_config" {
   filename = var.kube_config_path
 }
 
-module "sops" {
-  source = "./modules/sops"
+module "secrets" {
+  source = "./modules/secrets"
 
-  kube_config     = module.oci.kube_config
-  age_private_key = var.age_private_key
-  age_public_key  = var.age_public_key
+  kube_config = module.oci.kube_config
+  secrets     = var.secrets
 }
 
 module "argocd" {
