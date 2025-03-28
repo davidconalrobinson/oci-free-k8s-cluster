@@ -4,6 +4,7 @@ This terraform module deploys:
 - An always-free kubernetes cluster on OCI (Oracle Cloud Infrastructure). The cluster consists of two nodes running [VM.Standard.A1.Flex](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm#flexible) node shape - each with 2CPU, 12GB memory and 50GB boot volume. This falls within OCI's always-free quota for [compute](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm#compute) and [block volume storage](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm#blockvolume) (and leaves 100GB always-free block volume storage remaining for applications that may later be deployed on the cluster). The cluster is created in a dedicated compartment and VCN.
 - A DNS zone for publicly exposing applications running on the cluster.
 - [Argo CD](https://argo-cd.readthedocs.io/en/stable/) for managing the deployment of future applications on the cluster.
+- Kubernetes secrets
 
 ## Pre-requisites
 
@@ -24,16 +25,6 @@ In addition you will also need to install the following:
     ```
     brew install oci-cli
     ```
-- [age](https://github.com/FiloSottile/age)
-    ```
-    brew install age
-    ```
-
-And run the following to generate a key pair using age (we will deploy this to the cluster for decrypting secrets):
-```
-AGE_KEY_FILE=$PWD/.key.txt
-AGE_PUBLIC_KEY=$( age-keygen -o $AGE_KEY_FILE 2>&1 | awk '{ print $3 }' )
-```
 
 ## Using the module
 
@@ -51,8 +42,15 @@ module "oci_free_k8s_cluster" {
     dns_name            = "example.com"
     availability_domain = "chxt:eu-amsterdam-1-AD-1"
     node_image_id       = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaafzh7gzsjes6na6rebvxtgs7ldp5qcjegal5y76ouhut4prih4y5q"
-    age_private_key     = "some-private-key"
-    age_public_key      = "some-public-key"
+    secrets             = [
+        {
+            namespace = "sops-secrets-operator"
+            name      = "age-private-key-secret"
+            data      = {
+                age-private-key = "AGE-SECRET-KEY-0123456789"
+            }
+        }
+    ]
 }
 ```
 
