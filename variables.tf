@@ -32,23 +32,23 @@ variable "node_image_id" {
 
 variable "kubernetes_version" {
   description = "The version of Kubernetes to be used for the cluster. Default is 'v1.31.1'. See more: [Kubernetes Versions](https://kubernetes.io/docs/setup/release/version-skew-policy/)"
-  default = "v1.31.1"
+  default     = "v1.31.1"
 }
 
 variable "compartment_name" {
   description = "The name of the OCI compartment where the Kubernetes cluster will be created. Default is 'oci-free-k8s-cluster'. See more: [OCI Compartments](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/compartments.htm)"
-  default = "oci-free-k8s-cluster"
+  default     = "oci-free-k8s-cluster"
 }
 
 variable "kube_config_path" {
   description = "The file path where the Kubernetes configuration file will be stored. Default is '.kube_config'. See more: [Kubeconfig File](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)"
-  default = ".kube_config"
+  default     = ".kube_config"
 }
 
 variable "secrets" {
   description = "Kubernetes secrets to deploy to cluster."
   default     = []
-  type        = list(object({
+  type = list(object({
     namespace = string
     name      = string
     data      = map(any)

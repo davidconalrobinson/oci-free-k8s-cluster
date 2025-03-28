@@ -27,5 +27,17 @@ variable "region" {
 }
 
 variable "argocd_chart_version" {
-    default = "v2.13.4"
+  default = "v2.13.4"
+}
+
+variable "applications" {
+  description = ""
+  default     = []
+  type = list(object({
+    app_name    = string
+    namespace   = string
+    github_repo = string
+    subpath     = string
+    branch      = string
+  }))
 }

@@ -5,7 +5,7 @@ variable "kube_config" {
 variable "secrets" {
   description = "Kubernetes secrets to deploy to cluster."
   default     = []
-  type        = list(object({
+  type = list(object({
     namespace = string
     name      = string
     data      = map(any)
